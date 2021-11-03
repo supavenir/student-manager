@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UtilisateurController;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +20,13 @@ Route::get('/', function () {
 });
 
 Route::get("/users", function(){
-    $users = Utilisateur::all();    
-    return view("users", ['users' => $users]); 
+    $controller = new UtilisateurController();  
+    return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]); 
 });
 
 Route::get("/users/{id}", function ($id) {
-    $user = Utilisateur::where('id', $id)->get();
-    return view("users", ['users' => $user]);
+    $controller = new UtilisateurController();
+    return view("user", ['user' => $controller->getById($id)]);
 });
 
 Route::get('/dashboard', function () {
