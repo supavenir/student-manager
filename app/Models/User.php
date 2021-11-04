@@ -7,23 +7,15 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-/**
- * Class User
- *
- * @property int $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- *
- * @package App\Models
- */
-class User extends Model
+
+class User extends Authenticatable
 {
+    use HasFactory, Notifiable;
 	protected $table = 'users';
 
 	protected $hidden = [
@@ -42,6 +34,15 @@ class User extends Model
         'idRole',
         'idEntreprise',
 	];
+
+    public function username(){
+        return 'login';
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->motDePasse;
+    }
 
     public function role()
     {
