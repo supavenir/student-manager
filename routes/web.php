@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('accueil');
 
 Route::get("/users", function(){
-    $controller = new UtilisateurController();  
-    return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]); 
+    $controller = new UtilisateurController();
+    return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]);
 });
 
 Route::get("/users/{id}", function ($id) {
