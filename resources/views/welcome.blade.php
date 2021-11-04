@@ -48,7 +48,7 @@
             <div x-show="open === true" class="md:hidden flex flex-col w-full z-40 bg-indigo-600 rounded mt-4 py-2 overflow-hidden">
                 @auth
                     <a href="/dashboard" class="font-mitr text-sm uppercase text-gray-200 py-2 px-2 hover:bg-indigo-500">Tableau de bord</a>
-                @elseauth
+                @else
                     <a href="/login" class="font-mitr text-sm uppercase text-gray-200 py-2 px-2 hover:bg-indigo-500">Connexion</a>
                     <a href="/register" class="font-mitr text-sm uppercase text-gray-200 py-2 px-2 hover:bg-indigo-500">Enregistrer</a>
                 @endauth
