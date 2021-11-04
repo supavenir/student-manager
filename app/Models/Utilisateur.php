@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Utilisateur
- * 
+ *
  * @property int $id
  * @property string|null $login
  * @property string|null $email
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $tel
  * @property int $idRole
  * @property int|null $idEntreprise
- * 
+ *
  * @property Role $role
  * @property Entreprise|null $entreprise
  * @property Collection|Contrat[] $contrats
@@ -50,29 +50,28 @@ class Utilisateur extends Model
 		'idRole',
 		'idEntreprise'
 	];
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'idRole');
+    }
 
-	public function role()
-	{
-		return $this->belongsTo(Role::class, 'idRole');
-	}
+    public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class, 'idEntreprise');
+    }
 
-	public function entreprise()
-	{
-		return $this->belongsTo(Entreprise::class, 'idEntreprise');
-	}
+    public function contrats()
+    {
+        return $this->hasMany(Contrat::class, 'idEtudiant');
+    }
 
-	public function contrats()
-	{
-		return $this->hasMany(Contrat::class, 'idEtudiant');
-	}
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'idUtilisateur');
+    }
 
-	public function logs()
-	{
-		return $this->hasMany(Log::class, 'idUtilisateur');
-	}
-
-	public function tutorats()
-	{
-		return $this->hasMany(Tutorat::class, 'idTuteur');
-	}
+    public function tutorats()
+    {
+        return $this->hasMany(Tutorat::class, 'idTuteur');
+    }
 }

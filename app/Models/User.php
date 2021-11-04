@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -27,14 +27,44 @@ class User extends Model
 	protected $table = 'users';
 
 	protected $hidden = [
-		'password',
+		'motDePasse',
 		'remember_token'
 	];
 
 	protected $fillable = [
-		'name',
+        'login',
+		'nom',
+        'prenom',
 		'email',
-		'password',
-		'remember_token'
+		'motDePasse',
+		'remember_token',
+        'tel',
+        'idRole',
+        'idEntreprise',
 	];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'idRole');
+    }
+
+    public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class, 'idEntreprise');
+    }
+
+    public function contrats()
+    {
+        return $this->hasMany(Contrat::class, 'idEtudiant');
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class, 'idUtilisateur');
+    }
+
+    public function tutorats()
+    {
+        return $this->hasMany(Tutorat::class, 'idTuteur');
+    }
 }
