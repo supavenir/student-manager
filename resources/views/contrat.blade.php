@@ -7,24 +7,24 @@
     <div class="p-1 flex flex-1 flex-col md:flex-row lg:flex-row justify-between md:mx-2 lg:mx-2">
         <div class="rounded overflow-hidden shadow-lg">
             <div class="px-6 py-4 mb-5">
-              <div class="font-bold text-xl mb-5"><i class="fas fa-id-card"></i> Fiche de {{$user->fullName()}}</div>
+              <div class="font-bold text-xl mb-5"><i class="fas fa-id-card"></i> Contrat n°{{$contrat->id}}</div>
                 <p class="text-gray-700 text-base">
-                  <span class="font-bold">Email : </span>
-                  @if($user->email) {{$user->email}} @else Aucune @endif
+                  <span class="font-bold">Date de début : </span>
+                  @if($contrat->dateD) {{$contrat->dateD}} @else Aucune @endif
                 </p>
                 <p class="text-gray-700 text-base">
-                  <span class="font-bold">Téléphone : </span>
-                  @if($user->tel) {{$user->tel}} @else Aucun @endif
+                  <span class="font-bold">Date de fin : </span>
+                  @if($contrat->dateF) {{$contrat->dateF}} @else Aucune @endif
                 </p>
                 <p class="text-gray-700 text-base">
-                  <span class="font-bold">Role : </span>
-                  @if($user->role) {{$user->role->libelle}} @else Aucun @endif
+                  <span class="font-bold">Professeur référent : </span>
+                  @if($contrat->professeur) {{$contrat->professeur->fullName()}} @else Aucun @endif
                 </p>
                 <p class="text-gray-700 text-base">
                   <span class="font-bold">Entreprise : </span>
-                  @if($user->entreprise)
-                    @if($user->entreprise->raisonSociale)
-                      {{$user->entreprise->raisonSociale}}
+                  @if($contrat->entreprise)
+                    @if($contrat->entreprise->raisonSociale)
+                      {{$contrat->entreprise->raisonSociale}}
                     @else
                       Aucun nom renseigné
                     @endif
@@ -35,35 +35,38 @@
             </div>
 
             <div class="px-6 py-4 mb-5">
-              <div class="font-bold text-xl mb-5"><i class="fas fa-file-signature"></i> Historique des contrats</div>
+              <div class="flex justify-between mb-5">
+                <div class="font-bold text-xl mb-5"><i class="fas fa-file-signature"></i> Historique des suivis</div>
+                <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Ajouter</a>
+              </div>
                 <div class="w-full overflow-x-auto">
                   <table class="w-full">
                     <thead>
                       <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                        <th class="px-4 py-3">Entreprise</th>
-                        <th class="px-4 py-3">Professeur référent</th>
-                        <th class="px-4 py-3">Date de début</th>
-                        <th class="px-4 py-3">Date de fin</th>
+                        <th class="px-4 py-3">Date</th>
+                        <th class="px-4 py-3">Commentaire</th>
+                        <th class="px-4 py-3">Statut</th>
                         <th class="px-4 py-3">Actions</th>
                       </tr>
                     </thead>
                     <tbody class="bg-white">
-                      @if($user->contrats)
-                        @if(!$user->contrats->isEmpty())
-                          @foreach($user->contrats as $contrat)
+                      @if($contrat->suivis)
+                        @if(!$contrat->suivis->isEmpty())
+                          @foreach($contrat->suivis as $suivi)
                             <tr class="text-gray-700">
-                              <td class="px-4 py-3 text-sm border">{{$contrat->entreprise->raisonSociale}}</td>
-                              <td class="px-4 py-3 text-sm border">{{$contrat->professeur->fullName()}}</td>
-                              <td class="px-4 py-3 text-sm border">{{$contrat->dateD}}</td>
-                              <td class="px-4 py-3 text-sm border">{{$contrat->dateF}}</td>
+                              <td class="px-4 py-3 text-sm border">{{$suivi->dateS}}</td>
+                              <td class="px-4 py-3 text-sm border">@if($suivi->commentaire) {{$suivi->commentaire}} @else Aucun @endif</td>
+                              <td class="px-4 py-3 text-xs border">
+                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> {{$suivi->status}} </span>
+                              </td>
                               <td class="px-4 py-3 text-sm border">
-                                <a href="{{route('contrats-details', ['id'=>$contrat->id])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Détails</a>
+                                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Consulter</a>
                               </td>
                             </tr>
                           @endforeach
                         @else
                           <tr>
-                            Aucun contrat n'est associé à cet élève...
+                            <td>Aucun suivi n'a été saisi pour ce contrat ...</td>
                           </tr>
                         @endif
                       @endif

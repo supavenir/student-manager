@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContratController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -27,6 +28,11 @@ Route::get("/users/{id}", function ($id) {
     $controller = new UserController();
     return view("user", ['user' => $controller->getById($id)]);
 })->name('etudiants-details');
+
+Route::get("/contrats/{id}", function ($id) {
+    $controller = new ContratController();
+    return view("contrat", ['contrat' => $controller->getById($id)]);
+})->name('contrats-details');
 
 Route::get('/dashboard', function () {
     return view('home');

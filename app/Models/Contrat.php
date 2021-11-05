@@ -54,7 +54,12 @@ class Contrat extends Model
 
 	public function utilisateur()
 	{
-		return $this->belongsTo(Utilisateur::class, 'idEtudiant');
+		return $this->belongsTo(User::class, 'idEtudiant');
+	}
+
+	public function professeur()
+	{
+		return $this->belongsTo(User::class, 'idProfesseur');
 	}
 
 	public function entreprise()

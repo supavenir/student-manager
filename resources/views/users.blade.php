@@ -24,7 +24,7 @@
                 <td class="px-4 py-3 text-sm border">{{$user->email}}</td>
                 <td class="px-4 py-3 text-sm border">{{$user->role->libelle}}</td>
                 <td class="px-4 py-3 text-sm border">
-                  <a href="{{route('etudiants-details', ['id'=>$user->id])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Détails</a>
+                  <a href="{{route('etudiants-details', ['id'=>$user->id])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Détails</a>
                 </td>
               </tr>
             @endforeach
