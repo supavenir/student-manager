@@ -1,8 +1,7 @@
 <?php
 
-use App\Http\Controllers\UtilisateurController;
-use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +19,12 @@ Route::get('/', function () {
 })->name('accueil');
 
 Route::get("/users", function(){
-    $controller = new UtilisateurController();
+    $controller = new UserController();
     return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]);
 })->name('etudiants');
 
 Route::get("/users/{id}", function ($id) {
-    $controller = new UtilisateurController();
+    $controller = new UserController();
     return view("user", ['user' => $controller->getById($id)]);
 })->name('etudiants-details');
 

@@ -3,7 +3,7 @@
 @section('content')
 
   <!-- component -->
-  <section class="container mx-auto p-6 font-mono">
+  <section class="container mx-auto p-6">
     <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
       <div class="w-full overflow-x-auto">
         <table class="w-full">
@@ -13,6 +13,7 @@
               <th class="px-4 py-3">Prénom</th>
               <th class="px-4 py-3">Mail</th>
               <th class="px-4 py-3">Rôle</th>
+              <th class="px-4 py-3">Actions</th>
             </tr>
           </thead>
           <tbody class="bg-white">
@@ -22,6 +23,9 @@
                 <td class="px-4 py-3 text-sm border">{{$user->prenom}}</td>
                 <td class="px-4 py-3 text-sm border">{{$user->email}}</td>
                 <td class="px-4 py-3 text-sm border">{{$user->role->libelle}}</td>
+                <td class="px-4 py-3 text-sm border">
+                  <a href="{{route('etudiants-details', ['id'=>$user->id])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Détails</a>
+                </td>
               </tr>
             @endforeach
           </tbody>

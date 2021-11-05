@@ -44,6 +44,15 @@ class User extends Authenticatable
         return $this->motDePasse;
     }
 
+    public function fullName()
+    {
+        return $this->nom . " " . $this->prenom;
+    }
+
+    public function hasRole(int $idRole){
+        return $this->role === $idRole;
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class, 'idRole');
