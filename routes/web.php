@@ -22,15 +22,15 @@ Route::get('/', function () {
 Route::get("/users", function(){
     $controller = new UtilisateurController();
     return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]);
-});
+})->name('etudiants');
 
 Route::get("/users/{id}", function ($id) {
     $controller = new UtilisateurController();
     return view("user", ['user' => $controller->getById($id)]);
-});
+})->name('etudiants-details');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('home');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
