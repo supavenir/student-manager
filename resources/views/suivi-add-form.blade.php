@@ -20,6 +20,7 @@
                       @foreach($niveaux as $niveau)
                         <th class="px-4 py-3">{{$niveau->libelle}}</th>
                       @endforeach
+                      <th class="px-4 py-3">Commentaire</th>
                     </tr>
                   </thead>
                   <tbody class="bg-white">
@@ -27,8 +28,9 @@
                       <tr class="text-gray-700">
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
-                          <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}" id="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
+                          <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
                         @endforeach
+                        <td class="px-4 py-3 text-sm border"><textarea class="rounded-lg" name="{{$rubrique->id}}-{{$critere->id}}-comment" cols="30" rows="1" placeholder="Commentaire facultatif"></textarea></td>
                       </tr>
                     @endforeach
                   </tbody>
@@ -38,7 +40,10 @@
           </section>
         </div>
       @endforeach
-      <button type="submit" class="bg-blue-500 hover:bg-blue-700 p-3 rounded-lg">Envoyer</button>
+      <div class="flex items-center wrap justify-between">
+        <textarea class="rounded-lg mr-3" name="suivi-comment" cols="30" rows="1" placeholder="Commentaire global ..."></textarea>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 p-3 rounded-lg text-white">Envoyer</button>
+      </div>
     </form>
   </section>
 

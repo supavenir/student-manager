@@ -137,6 +137,5 @@
         </div>
     </div>
     </body>
-    </body>
 
 </x-app-layout>

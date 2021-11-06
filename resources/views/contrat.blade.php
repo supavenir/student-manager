@@ -64,10 +64,15 @@
                               <td class="px-4 py-3 text-sm border">{{$suivi->dateS}}</td>
                               <td class="px-4 py-3 text-sm border">@if($suivi->commentaire) {{$suivi->commentaire}} @else Aucun @endif</td>
                               <td class="px-4 py-3 text-xs border">
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> {{$suivi->status}} </span>
+                                @if($suivi->statut === 'ok')
+                                  <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Complet </span>
+                                @else
+                                  <span class="px-2 py-1 font-semibold leading-tight text-orange-700 bg-red-100 rounded-sm"> En attente </span>
+                                @endif
                               </td>
                               <td class="px-4 py-3 text-sm border">
-                                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Consulter</a>
+                                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i></a>
+                                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-edit"></i></a>
                               </td>
                             </tr>
                           @endforeach

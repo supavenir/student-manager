@@ -20,25 +20,36 @@ class SuiviController extends Controller
       $suivi = new Suivi();
       $suivi->idContrat = $idContrat;
       $suivi->dateS = new \DateTime();
-      $suivi->commentaire = "";
-      $suivi->statut = "pending";
+      $suivi->commentaire = $request["suivi-comment"] ? $request["suivi-comment"] : null;
+      $suivi->statut = "Pending";
       $suivi->save();
+      $suiviComplet = true;
       foreach ($rubriques as $rubrique){
         foreach($rubrique->criteres()->get() as $critere){
+          $evaluated = false;
           foreach($niveaux as $niveau){
             if($request[$rubrique->id."-".$critere->id."-".$niveau->id]){
+              $evaluated = true;
               $evaluation = new Evaluation();
               $evaluation->idCritere = $critere->id;
               $evaluation->idNiveau = $niveau->id;
               $evaluation->idSuivi = $suivi->id;
               $evaluation->sens = 0;
-              $evaluation->commentaire = "";
+              $evaluation->commentaire = $request[$rubrique->id . "-" . $critere->id . "-comment"]
+                                        ? $request[$rubrique->id . "-" . $critere->id . "-comment"]
+                                        : "" ;
               $evaluation->save();
             }
           }
+          if(!$evaluated && $suiviComplet) $suiviComplet = false;
         }
       }
+      if($suiviComplet){
+        $suivi->statut = "OK";
+        $suivi->update();
+      }
     }
+    return redirect()->route('contrats-details', ["id"=>$idContrat]);
   }
 
   public function getAllRubriquesWithCriteres(): Collection
