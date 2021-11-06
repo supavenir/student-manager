@@ -17,6 +17,13 @@
                   @if($contrat->dateF) {{$contrat->dateF}} @else Aucune @endif
                 </p>
                 <p class="text-gray-700 text-base">
+                  <span class="font-bold">Etudiant : </span>
+                  @if($contrat->etudiant)
+                    <a href="{{route('etudiants-details', ['id'=>$contrat->etudiant->id])}}">{{$contrat->etudiant->fullName()}}</a>
+                  @else Aucun 
+                  @endif
+                </p>
+                <p class="text-gray-700 text-base">
                   <span class="font-bold">Professeur référent : </span>
                   @if($contrat->professeur) {{$contrat->professeur->fullName()}} @else Aucun @endif
                 </p>
@@ -37,7 +44,7 @@
             <div class="px-6 py-4 mb-5">
               <div class="flex justify-between mb-5">
                 <div class="font-bold text-xl mb-5"><i class="fas fa-file-signature"></i> Historique des suivis</div>
-                <a href="#" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i> Ajouter</a>
+                <a href="{{route('add-suivi', ['id'=>$contrat->id])}}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-plus-circle"></i> Ajouter</a>
               </div>
                 <div class="w-full overflow-x-auto">
                   <table class="w-full">

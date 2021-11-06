@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\ContratController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SuiviController;
+use App\Http\Controllers\ContratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,17 @@ Route::get("/contrats/{id}", function ($id) {
     $controller = new ContratController();
     return view("contrat", ['contrat' => $controller->getById($id)]);
 })->name('contrats-details');
+
+Route::get("/contrats/{id}/suivis/new", function ($id) {
+    $controller = new SuiviController();
+    return view("suivi-add-form", [
+        'rubriques' => $controller->getAllRubriquesWithCriteres(),
+        'niveaux' => $controller->getAllNiveaux(),
+        'idContrat' => $id
+    ]);
+})->name('add-suivi');
+
+Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'getSuiviPosted'])->name('add-suivi-post');
 
 Route::get('/dashboard', function () {
     return view('home');
