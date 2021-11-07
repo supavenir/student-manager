@@ -55,8 +55,8 @@ Route::get("/contrats/{id}/suivis/{idSuivi}/edit", function ($id, $idSuivi) {
     ]);
 })->name('edit-suivi');
 
-Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'getSuiviPosted'])->name('add-suivi-post');
-Route::post('/contrats/{idContrat}/suivis/{idSuivi}/edit', [SuiviController::class, 'getSuiviPosted'])->name('edit-suivi-post');
+Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'addSuivi'])->name('add-suivi-post');
+Route::post('/contrats/{idContrat}/suivis/{idSuivi}/edit', [SuiviController::class, 'editSuivi'])->name('edit-suivi-post');
 
 Route::get('/dashboard', function () {
     return view('home');

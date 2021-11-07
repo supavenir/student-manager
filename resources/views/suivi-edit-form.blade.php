@@ -28,7 +28,7 @@
                       <tr class="text-gray-700">
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
-                          @if($suivi->hasBeenEvaluated($suivi->id, $critere->id, $niveau->id))
+                          @if($suivi->hasBeenEvaluated($critere->id, $niveau->id))
                             <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}" checked></td>
                           @else
                             <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
