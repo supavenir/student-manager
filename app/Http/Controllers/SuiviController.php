@@ -66,13 +66,26 @@ class SuiviController extends Controller
         foreach ($rubrique->criteres()->get() as $critere) {
           $evaluated = false;
           $evaluation = $suivi->getEvaluation($critere->id);
-          if($evaluation != null && $request[$rubrique->id . "-" . $critere->id . "-" . $evaluation->niveau()->first()->id]){
+          if($evaluation != null){
             $evaluated = true;
+            foreach($request->all() as $key=>$value){
+              if($key == '_token') continue;
+              $keyExploded = explode("-", $key);
+              if($keyExploded[0] == $rubrique->id && $keyExploded[1] == $critere->id && $keyExploded[2] != 'comment'){
+                $niveauId = $keyExploded[2];
+                $evaluation->where([
+                  'idCritere'=>$critere->id,
+                  'idNiveau'=> $evaluation->idNiveau,
+                  'idSuivi'=>$suivi->id
+                ])->update(['idNiveau'=>$niveauId, 'commentaire'=>$request[$rubrique->id . "-" . $critere->id . "-comment"]]);
+                break;
+              }
+            }
           }else{
             foreach ($niveaux as $niveau) {
               if ($request[$rubrique->id . "-" . $critere->id . "-" . $niveau->id]) {
                 $evaluated = true;
-                if ($evaluation == null) $evaluation = new Evaluation();
+                $evaluation = new Evaluation();
                 $evaluation->idCritere = $critere->id;
                 $evaluation->idNiveau = $niveau->id;
                 $evaluation->idSuivi = $suivi->id;
@@ -80,7 +93,7 @@ class SuiviController extends Controller
                 $evaluation->commentaire = $request[$rubrique->id . "-" . $critere->id . "-comment"]
                   ? $request[$rubrique->id . "-" . $critere->id . "-comment"]
                   : "";
-                $evaluation->id != null ? $evaluation->update() : $evaluation->save();
+                $evaluation->save();
               }
             }
           }
