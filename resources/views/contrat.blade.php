@@ -72,7 +72,7 @@
                               </td>
                               <td class="px-4 py-3 text-sm border">
                                 <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="far fa-eye"></i></a>
-                                <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-edit"></i></a>
+                                <a href="{{route('edit-suivi', ['id' => $contrat->id, 'idSuivi' => $suivi->id])}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"><i class="fas fa-edit"></i></a>
                               </td>
                             </tr>
                           @endforeach

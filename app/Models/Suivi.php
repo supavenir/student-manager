@@ -44,6 +44,25 @@ class Suivi extends Model
 		'idContrat'
 	];
 
+	public function hasBeenEvaluated(int $idSuivi, int $idCritere, int $idNiveau): bool
+	{
+		foreach ($this->evaluations()->get() as $evaluation) {
+			if ($evaluation->idSuivi == $idSuivi && $evaluation->idCritere == $idCritere && $evaluation->idNiveau == $idNiveau) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public function getCommentOfEvaluation(int $idSuivi, int $idCritere){
+		foreach ($this->evaluations()->get() as $evaluation) {
+			if ($evaluation->idSuivi == $idSuivi && $evaluation->idCritere == $idCritere) {
+				return $evaluation->commentaire;
+			}
+		}
+		return null;
+	}
+
 	public function contrat()
 	{
 		return $this->belongsTo(Contrat::class, 'idContrat');

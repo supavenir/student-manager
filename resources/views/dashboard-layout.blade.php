@@ -131,7 +131,8 @@
         <div class="flex flex-col flex-1 w-full overflow-y-auto">
             <!--Start Topbar -->
             <!--End Topbar -->
-            <main class="relative z-0 flex-1 pb-8 px-6 bg-white">
+            <main class="relative z-0 flex-1 pb-8 px-6 bg-white pt-8">
+                <a href="{{url()->previous()}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded"><i class="fas fa-chevron-circle-left"></i> Retour</a>
                 @yield('content')
             </main>
         </div>

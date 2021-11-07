@@ -52,6 +52,11 @@ class SuiviController extends Controller
     return redirect()->route('contrats-details', ["id"=>$idContrat]);
   }
 
+  public function getById($id): Suivi
+  {
+    return Suivi::where('id', $id)->first();
+  }
+
   public function getAllRubriquesWithCriteres(): Collection
   {
     return Rubrique::all();
