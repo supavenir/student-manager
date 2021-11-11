@@ -17,6 +17,7 @@
                   <thead>
                     <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                       <th class="px-4 py-3"></th>
+                      <th class="px-4 py-3"></th>
                       @foreach($niveaux as $niveau)
                         <th class="px-4 py-3">{{$niveau->libelle}}</th>
                       @endforeach
@@ -26,6 +27,7 @@
                   <tbody class="bg-white">
                     @foreach($rubrique->criteres as $critere)
                       <tr class="text-gray-700">
+                        <td class="px-4 py-3 text-sm border"><a class="text-indigo-500" href="{{route('evaluation-history', ['idContrat'=>$idContrat, 'idRubrique'=>$rubrique->id, 'idCritere'=>$critere->id])}}" target="_blank"><i class="fas fa-history"></i></a></td>
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
                           @if($suivi->hasBeenEvaluated($critere->id, $niveau->id))

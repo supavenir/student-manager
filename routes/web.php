@@ -58,16 +58,19 @@ Route::get("/contrats/{id}/suivis/{idSuivi}/edit", function ($id, $idSuivi) {
 })->name('edit-suivi');
 
 Route::get("/contrats/{idContrat}/evaluation/{idRubrique}/{idCritere}/history", function ($idContrat, $idRubrique, $idCritere) {
-    $controller = new SuiviController();
     return view("evaluation-history", [
-        'data' => $controller->getEvaluationHistory($idContrat, $idRubrique, $idCritere),
         'rubrique' => Rubrique::where('id', $idRubrique)->first(),
-        'critere' => Critere::where('id', $idCritere)->first()
+        'critere' => Critere::where('id', $idCritere)->first(),
+        'idContrat' => $idContrat
     ]);
 })->name('evaluation-history');
-
 Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'addSuivi'])->name('add-suivi-post');
 Route::post('/contrats/{idContrat}/suivis/{idSuivi}/edit', [SuiviController::class, 'editSuivi'])->name('edit-suivi-post');
+
+Route::get('/api/contrats/{idContrat}/{idCritere}/history', function($idContrat, $idCritere){
+    $controller = new ContratController();
+    return response()->json($controller->getEvaluationHistoryToJson($idContrat, $idCritere));
+});
 
 Route::get('/dashboard', function () {
     return view('home');

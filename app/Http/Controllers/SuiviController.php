@@ -108,23 +108,6 @@ class SuiviController extends Controller
     return redirect()->route('contrats-details', ["id" => $idContrat]);
   }
 
-  public function getEvaluationHistory($idContrat, $idRubrique, $idCritere){
-    $contrat = Contrat::where('id', $idContrat)->first();
-    if(count($contrat->suivis->sortByDesc('dateS')) > 0){
-      $finalResult = [];
-      foreach($contrat->suivis as $suivi){
-        $evaluation = Evaluation::where([
-          'idCritere' => $idCritere,
-          'idSuivi' => $suivi->id
-        ])->first();
-        array_push($finalResult, array('suivi' => $suivi, 'evaluation' => $evaluation));
-      }
-      return $finalResult;
-    }else{
-      return [];
-    }
-  }
-
   public function getById($id): Suivi
   {
     return Suivi::where('id', $id)->first();
