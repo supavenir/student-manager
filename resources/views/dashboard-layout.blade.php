@@ -61,7 +61,6 @@
             <div class="mb-6">
                 <!--Start Sidebar for open menu -->
                 <div class="grid grid-cols-1 gap-4 grid-cols-1 mt-6">
-                    <!-- Start Navitem -->
                     <a href="{{route('dashboard')}}" class="">
                         <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
                             <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
@@ -70,8 +69,7 @@
                             <p class="text-xs mt-1 text-center font-semibold">Accueil</p>
                         </div>
                     </a>
-                    <!-- End Navitem -->
-                    <!-- Start Navitem -->
+                    @if(auth()->user()->role->libelle == 'Professeur' || auth()->user()->role->libelle == 'Admin')
                     <a href="{{route('etudiants')}}">
                         <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
                             <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
@@ -80,6 +78,7 @@
                             <p class="text-xs mt-1 text-center font-semibold">Etudiants</p>
                         </div>
                     </a>
+                    @endif
                     <a href="{{route('chatify')}}">
                         <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
                             <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
@@ -88,41 +87,15 @@
                             <p class="text-xs mt-1 text-center font-semibold">Messagerie</p>
                         </div>
                     </a>
-                    <!-- End Navitem -->
-                    <!-- Start Navitem -->
-                    {{-- <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
-                        <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
-                            <i class="fas fa-wallet fa-sm text-indigo-600"></i>
+                    <a href="">
+                        <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
+                            <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
+                                <i class="fas fa-user fa-sm text-indigo-600"></i>
+                            </div>
+                            <p class="text-xs mt-1 text-center font-semibold">Mon compte</p>
                         </div>
-                        <p class="text-xs mt-1 text-center font-semibold">Wallet</p>
-                    </div>
-                    <!-- End Navitem -->
-                    <!-- Start Navitem -->
-                    <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
-                        <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
-                            <i class="fas fa-archive fa-sm text-indigo-600"></i>
-                        </div>
-                        <p class="text-xs mt-1 text-center font-semibold">Saving</p>
-                    </div>
-                    <!-- End Navitem -->
-                    <!-- Start Navitem -->
-                    <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
-                        <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
-                            <i class="fas fa-money-bill-wave-alt fa-sm text-indigo-600"></i>
-                        </div>
-                        <p class="text-xs mt-1 text-center font-semibold">Currencies</p>
-                    </div>
-                    <!-- End Navitem -->
-                    <!-- Start Navitem -->
-                    <div class="p-2 flex flex-col items-center bg-white rounded-md justify-center shadow-xl cursor-pointer">
-                        <div class="rounded-full p-2 bg-indigo-200 flex flex-col items-center">
-                            <i class="fas fa-shopping-basket fa-sm text-indigo-600"></i>
-                        </div>
-                        <p class="text-xs mt-1 text-center font-semibold">Expenses</p>
-                    </div> --}}
-                    <!-- End Navitem -->
+                    </a>
                 </div>
-                <!--End Sidebar for open menu -->
             </div>
         </aside>
         <!-- End Open Menu -->
@@ -132,7 +105,7 @@
             <!--Start Topbar -->
             <!--End Topbar -->
             <main class="relative z-0 flex-1 pb-8 px-6 bg-white pt-8">
-                <a href="{{url()->previous()}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded"><i class="fas fa-chevron-circle-left"></i> Retour</a>
+                <a href="{{url()->previous()}}" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-4 rounded"><i class="fas fa-chevron-circle-left"></i> Retour</a>
                 @yield('content')
             </main>
         </div>

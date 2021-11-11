@@ -4,15 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Suivi;
 use App\Models\Niveau;
+use App\Models\Contrat;
 use App\Models\Rubrique;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Database\Eloquent\Collection;
 
 class SuiviController extends Controller
 {
-
   public function addSuivi(Request $request, int $idContrat){
     if(count($request->all()) > 1){
       $rubriques = $this->getAllRubriquesWithCriteres();
@@ -106,6 +106,23 @@ class SuiviController extends Controller
       }
     }
     return redirect()->route('contrats-details', ["id" => $idContrat]);
+  }
+
+  public function getEvaluationHistory($idContrat, $idRubrique, $idCritere){
+    $contrat = Contrat::where('id', $idContrat)->first();
+    if(count($contrat->suivis->sortByDesc('dateS')) > 0){
+      $finalResult = [];
+      foreach($contrat->suivis as $suivi){
+        $evaluation = Evaluation::where([
+          'idCritere' => $idCritere,
+          'idSuivi' => $suivi->id
+        ])->first();
+        array_push($finalResult, array('suivi' => $suivi, 'evaluation' => $evaluation));
+      }
+      return $finalResult;
+    }else{
+      return [];
+    }
   }
 
   public function getById($id): Suivi

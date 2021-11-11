@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuiviController;
 use App\Http\Controllers\ContratController;
+use App\Models\Critere;
+use App\Models\Rubrique;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,15 @@ Route::get("/contrats/{id}/suivis/{idSuivi}/edit", function ($id, $idSuivi) {
         'suivi' => $controller->getById($idSuivi)
     ]);
 })->name('edit-suivi');
+
+Route::get("/contrats/{idContrat}/evaluation/{idRubrique}/{idCritere}/history", function ($idContrat, $idRubrique, $idCritere) {
+    $controller = new SuiviController();
+    return view("evaluation-history", [
+        'data' => $controller->getEvaluationHistory($idContrat, $idRubrique, $idCritere),
+        'rubrique' => Rubrique::where('id', $idRubrique)->first(),
+        'critere' => Critere::where('id', $idCritere)->first()
+    ]);
+})->name('evaluation-history');
 
 Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'addSuivi'])->name('add-suivi-post');
 Route::post('/contrats/{idContrat}/suivis/{idSuivi}/edit', [SuiviController::class, 'editSuivi'])->name('edit-suivi-post');
