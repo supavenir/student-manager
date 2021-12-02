@@ -111,7 +111,7 @@ class MessagesController extends Controller
      * Send a message to database
      *
      * @param Request $request
-     * @return JSON response
+     * @return \Illuminate\Http\JsonResponse response
      */
     public function send(Request $request)
     {
@@ -355,7 +355,7 @@ class MessagesController extends Controller
     {
         $getRecords = null;
         $input = trim(filter_var($request['input'], FILTER_SANITIZE_STRING));
-        $records = User::where('nom', 'LIKE', "%{$input}%");
+        $records = User::where('nom', 'LIKE', "%{$input}%")->orWhere('prenom', 'LIKE', "%{$input}%");
         foreach ($records->get() as $record) {
             $getRecords .= view('Chatify::layouts.listItem', [
                 'get' => 'search_item',

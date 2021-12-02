@@ -20,7 +20,12 @@ use App\Models\Rubrique;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->user() !== null){
+        return view('home');
+    }
+    else{
+        return view('auth/login');
+    }
 })->name('accueil');
 
 Route::get("/users", function(){
@@ -75,5 +80,9 @@ Route::get('/api/contrats/{idContrat}/{idCritere}/history', function($idContrat,
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth'])->name('dashboard');
+
+
+
+
 
 require __DIR__.'/auth.php';
