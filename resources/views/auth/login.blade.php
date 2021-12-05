@@ -60,6 +60,7 @@
     <!-- Tailwind -->
     <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@1.2.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://www.supavenir.fr/web/images/favicon.png" />
     <style>
 
         @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');

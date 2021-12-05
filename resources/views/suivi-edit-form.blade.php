@@ -4,6 +4,7 @@
 
   <!-- component -->
   <section class="container mx-auto p-6">
+      <h1 class="text-center">Suivi pour l'étudiant : <b>{{$eleve->nom}} {{$eleve->prenom}}</b></h1>
     <form action="{{route('edit-suivi-post', ["idContrat"=>$idContrat, "idSuivi"=>$suivi->id])}}" method="POST">
       @csrf
       @foreach ($rubriques as $rubrique)
@@ -31,9 +32,9 @@
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
                           @if($suivi->hasBeenEvaluated($critere->id, $niveau->id))
-                            <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}" checked></td>
+                            <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}" checked></td>
                           @else
-                            <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
+                            <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
                           @endif
                         @endforeach
                         <td class="px-4 py-3 text-sm border"><textarea class="rounded-lg" name="{{$rubrique->id}}-{{$critere->id}}-comment" cols="30" rows="1" placeholder="Commentaire facultatif">{{$suivi->getCommentOfEvaluation($suivi->id, $critere->id)}}</textarea></td>

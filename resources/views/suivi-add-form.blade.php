@@ -4,6 +4,7 @@
 
   <!-- component -->
   <section class="container mx-auto p-6">
+      <h1 class="text-center">Suivi pour l'étudiant : <b>{{$eleve->nom}} {{$eleve->prenom}}</b></h1>
     <form action="{{route('add-suivi-post', ["idContrat"=>$idContrat])}}" method="POST">
       @csrf
       @foreach ($rubriques as $rubrique)
@@ -30,7 +31,7 @@
                         <td class="px-4 py-3 text-sm border"><a class="text-indigo-500" href="{{route('evaluation-history', ['idContrat'=>$idContrat, 'idRubrique'=>$rubrique->id, 'idCritere'=>$critere->id])}}" target="_blank"><i class="fas fa-history"></i></a></td>
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
-                          <td class="px-4 py-3 text-sm border"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
+                          <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
                         @endforeach
                         <td class="px-4 py-3 text-sm border"><textarea class="rounded-lg" name="{{$rubrique->id}}-{{$critere->id}}-comment" cols="30" rows="1" placeholder="Commentaire facultatif"></textarea></td>
                       </tr>

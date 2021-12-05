@@ -45,19 +45,27 @@ Route::get("/contrats/{id}", function ($id) {
 
 Route::get("/contrats/{id}/suivis/new", function ($id) {
     $controller = new SuiviController();
+    $contract = \App\Models\Contrat::where('id', $id)->first();
+
+    $eleve = \App\Models\User::where('id', $contract->idEtudiant)->first();
     return view("suivi-add-form", [
         'rubriques' => $controller->getAllRubriquesWithCriteres(),
         'niveaux' => $controller->getAllNiveaux(),
+        'eleve' => $eleve,
         'idContrat' => $id
     ]);
 })->name('add-suivi');
 
 Route::get("/contrats/{id}/suivis/{idSuivi}/edit", function ($id, $idSuivi) {
     $controller = new SuiviController();
+    $contract = \App\Models\Contrat::where('id', $id)->first();
+
+    $eleve = \App\Models\User::where('id', $contract->idEtudiant)->first();
     return view("suivi-edit-form", [
         'rubriques' => $controller->getAllRubriquesWithCriteres(),
         'niveaux' => $controller->getAllNiveaux(),
         'idContrat' => $id,
+        'eleve' => $eleve,
         'suivi' => $controller->getById($idSuivi)
     ]);
 })->name('edit-suivi');
