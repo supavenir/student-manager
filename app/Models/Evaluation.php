@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $idCritere
  * @property int $idNiveau
  * @property int $idSuivi
- * @property int|null $sens
+ * @property string|null $sens
  * @property string|null $commentaire
  * 
  * @property Critere $critere
@@ -32,8 +32,7 @@ class Evaluation extends Model
 	protected $casts = [
 		'idCritere' => 'int',
 		'idNiveau' => 'int',
-		'idSuivi' => 'int',
-		'sens' => 'int'
+		'idSuivi' => 'int'
 	];
 
 	protected $fillable = [

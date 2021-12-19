@@ -4,7 +4,7 @@
   <span class="text-lg font-semibold text-gray-400 ml-3">Suivi pour l'étudiant <b>{{$eleve->nom}} {{$eleve->prenom}}</b></span>
   <!-- component -->
   <section class="container mx-auto p-6">
-    <form action="{{route('edit-suivi-post', ["idContrat"=>$idContrat, "idSuivi"=>$suivi->id])}}" method="POST">
+    <form action="{{route('add-suivi-post', ["idContrat"=>$idContrat])}}" method="POST">
       @csrf
       @foreach ($rubriques as $rubrique)
         <div class="rounded overflow-hidden shadow-lg mb-5 p-5">
@@ -30,13 +30,9 @@
                         <td class="px-4 py-3 text-sm border"><a class="text-indigo-500" href="{{route('evaluation-history', ['idContrat'=>$idContrat, 'idRubrique'=>$rubrique->id, 'idCritere'=>$critere->id])}}" target="_blank"><i class="fas fa-history"></i></a></td>
                         <td class="px-4 py-3 text-sm border">{{$critere->libelle}}</td>
                         @foreach($niveaux as $niveau)
-                          @if($suivi->hasBeenEvaluated($critere->id, $niveau->id))
-                            <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}" checked></td>
-                          @else
-                            <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
-                          @endif
+                          <td class="px-4 py-3 text-sm border text-center"><input type="checkbox" name="{{$rubrique->id}}-{{$critere->id}}-{{$niveau->id}}"></td>
                         @endforeach
-                        <td class="px-4 py-3 text-sm border"><textarea class="rounded-lg" name="{{$rubrique->id}}-{{$critere->id}}-comment" cols="30" rows="1" placeholder="Commentaire facultatif">{{$suivi->getCommentOfEvaluation($suivi->id, $critere->id)}}</textarea></td>
+                        <td class="px-4 py-3 text-sm border"><textarea class="rounded-lg" name="{{$rubrique->id}}-{{$critere->id}}-comment" cols="30" rows="1" placeholder="Commentaire facultatif"></textarea></td>
                       </tr>
                     @endforeach
                   </tbody>
@@ -47,7 +43,7 @@
         </div>
       @endforeach
       <div class="flex items-center wrap justify-between">
-        <textarea class="rounded-lg mr-3" name="suivi-comment" cols="30" rows="1" placeholder="Commentaire global ...">{{$suivi->commentaire}}</textarea>
+        <textarea class="rounded-lg mr-3" name="suivi-comment" cols="30" rows="1" placeholder="Commentaire global ..."></textarea>
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 p-3 rounded-lg text-white">Envoyer</button>
       </div>
     </form>

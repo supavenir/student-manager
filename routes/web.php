@@ -1,12 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Contrat;
+use App\Models\Critere;
+use App\Models\Rubrique;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuiviController;
 use App\Http\Controllers\ContratController;
-use App\Models\Critere;
-use App\Models\Rubrique;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,22 +47,31 @@ Route::get("/contrats/{id}", function ($id) {
 
 Route::get("/contrats/{id}/suivis/new", function ($id) {
     $controller = new SuiviController();
-    $contract = \App\Models\Contrat::where('id', $id)->first();
-
-    $eleve = \App\Models\User::where('id', $contract->idEtudiant)->first();
-    return view("suivi-add-form", [
-        'rubriques' => $controller->getAllRubriquesWithCriteres(),
-        'niveaux' => $controller->getAllNiveaux(),
-        'eleve' => $eleve,
-        'idContrat' => $id
-    ]);
+    $contract = Contrat::where('id', $id)->first();
+    $eleve = User::where('id', $contract->idEtudiant)->first();
+    if(count($contract->suivis()->get()) == 0){
+        return view("first-suivi-add-form", [
+            'rubriques' => $controller->getAllRubriquesWithCriteres(),
+            'niveaux' => $controller->getAllNiveaux(),
+            'eleve' => $eleve,
+            'idContrat' => $id
+        ]);
+    }else{
+        return view("suivi-add-form", [
+            'rubriques' => $controller->getAllRubriquesWithCriteres(),
+            'niveaux' => $controller->getAllNiveaux(),
+            'eleve' => $eleve,
+            'lastSuivi' => $controller->getLastSuiviByContrat($contract->id),
+            'idContrat' => $id
+        ]);
+    }
 })->name('add-suivi');
 
 Route::get("/contrats/{id}/suivis/{idSuivi}/edit", function ($id, $idSuivi) {
     $controller = new SuiviController();
-    $contract = \App\Models\Contrat::where('id', $id)->first();
+    $contract = Contrat::where('id', $id)->first();
 
-    $eleve = \App\Models\User::where('id', $contract->idEtudiant)->first();
+    $eleve = User::where('id', $contract->idEtudiant)->first();
     return view("suivi-edit-form", [
         'rubriques' => $controller->getAllRubriquesWithCriteres(),
         'niveaux' => $controller->getAllNiveaux(),
