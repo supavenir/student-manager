@@ -12,10 +12,12 @@
           <!-- component -->
           <section class="container mx-auto p-6 font-mono">
             @foreach($rubrique->criteres as $critere)
-              <div class="flex justify-around">
+              <div class="flex justify-between">
                 <div>
+                  <a class="text-indigo-500" href="{{route('evaluation-history', ['idContrat'=>$idContrat, 'idRubrique'=>$rubrique->id, 'idCritere'=>$critere->id])}}" target="_blank"><i class="fas fa-history"></i></a>
+                  <span class="text-l font-bold">{{$critere->libelle}}</span>
                   <p>
-                    Ancienne évaluation : <br>
+                    Ancienne évaluation :
                     <span class="text-gray-400">
                       @if($lastSuivi->getEvaluation($critere->id) != null)
                         {{ $lastSuivi->getEvaluation($critere->id)->niveau()->first()->libelle }}
@@ -30,8 +32,8 @@
                 </div>
                 <div class="flex items-center justify-center">
                   <div class="flex-2 flex items-center justify-between">
-                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-minus-minus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '--')">--</span>
-                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-minus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '-')">-</span>
+                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-minus-minus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-l-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '--')">--</span>
+                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-minus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-r-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '-')">-</span>
                   </div>
                   <div class="ml-3 mr-3">
                     <select name="{{$rubrique->id}}-{{$critere->id}}-selection">
@@ -50,8 +52,8 @@
                     </select>
                   </div>
                   <div class="flex-2 flex items-center justify-between">
-                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-plus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '+')">+</span>
-                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-plus-plus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '++')">++</span>
+                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-plus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-l-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '+')">+</span>
+                    <span id="evaluator-{{$rubrique->id}}-{{$critere->id}}-plus-plus" class="bg-blue-500 hover:bg-blue-700 p-3 m-1 rounded-r-lg text-white cursor-pointer" onclick="eval({{$rubrique->id}}, {{$critere->id}}, '++')">++</span>
                   </div>
                 </div>
                 <input type="hidden" name="{{$rubrique->id}}-{{$critere->id}}" id="{{$rubrique->id}}-{{$critere->id}}" value="" disabled/>
