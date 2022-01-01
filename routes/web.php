@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuiviController;
 use App\Http\Controllers\ContratController;
+use App\Http\Controllers\AdminController;
+use App\Models\Constants;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,7 @@ Route::get('/', function () {
 
 Route::get("/users", function(){
     $controller = new UserController();
-    return view("users", ['users' => $controller->findAll(), "toto"=>"<p>toto</p>"]);
+    return view("users", ['users' => $controller->findAll()]);
 })->name('etudiants');
 
 Route::get("/users/{id}", function ($id) {
@@ -88,20 +90,21 @@ Route::get("/contrats/{idContrat}/evaluation/{idRubrique}/{idCritere}/history", 
         'idContrat' => $idContrat
     ]);
 })->name('evaluation-history');
+
+Route::get("/admin/affectation-professeur-etudiant", function(){
+    return view("admin/affectation-professeur-etudiant", [
+        'professeurs' => User::where('idRole', Constants::ROLE_PROFESSEUR)->get()
+    ]);
+})->name('affectation-professeur-etudiant');
+
+Route::post("/admin/affectation-professeur-etudiant", [AdminController::class, 'setAffectationProfesseurToContrats'])
+    ->name('affectation-professeur-etudiant-post');
+
 Route::post('/contrats/{idContrat}/suivis/new', [SuiviController::class, 'addSuivi'])->name('add-suivi-post');
 Route::post('/contrats/{idContrat}/suivis/{idSuivi}/edit', [SuiviController::class, 'editSuivi'])->name('edit-suivi-post');
-
-Route::get('/api/contrats/{idContrat}/{idCritere}/history', function($idContrat, $idCritere){
-    $controller = new ContratController();
-    return response()->json($controller->getEvaluationHistoryToJson($idContrat, $idCritere));
-});
 
 Route::get('/dashboard', function () {
     return view('home');
 })->middleware(['auth'])->name('dashboard');
-
-
-
-
 
 require __DIR__.'/auth.php';

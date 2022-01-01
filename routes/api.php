@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/contrats/{idContrat}/{idCritere}/history', function ($idContrat, $idCritere) {
+    $controller = new ContratController();
+    return response()->json($controller->getEvaluationHistoryToJson($idContrat, $idCritere));
+});
+
+Route::get('/admin/professeurs/{idProfesseur}/contrats-not-linked', function($idProfesseur){
+    $controller = new ContratController();
+    return response()->json($controller->getAllContratsNotLinkedToProfesseur($idProfesseur));
 });

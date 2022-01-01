@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Contrat;
 use App\Models\Evaluation;
+use Illuminate\Http\Request;
 
 class ContratController extends Controller
 {
+  public function getAllContratsNotLinkedToProfesseur($idProfesseur)
+  {
+    $contrats = Contrat::where('idProfesseur', '!=', $idProfesseur)->get();
+    $finalResult = [];
+    foreach ($contrats as $contrat){
+      array_push($finalResult, array("contrat" => $contrat, "etudiant" => User::where('id', $contrat->idEtudiant)->first()));
+    }
+    return $finalResult;
+  }
 
   public function getEvaluationHistory(int $idContrat, int $idCritere, bool $sortByDate)
   {
